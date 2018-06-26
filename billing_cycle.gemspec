@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Brian Pattison"]
   s.email       = ["brian@brianpattison.com"]
   s.homepage    = "https://github.com/simplymadeapps/billing_cycle"
-  s.summary     = "Utility for calculating the next billing date for a subscription."
-  s.description = "Billing Cycle is a gem used to calculate the next billing date for a subscription."
+  s.summary     = "Utility for calculating the next billing date for a recurring subscription."
+  s.description = "Billing Cycle is a gem used to calculate the next billing date for a recurring subscription."
   s.license     = "MIT"
 
   s.files = Dir["{lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]

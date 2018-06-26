@@ -1,6 +1,6 @@
 # Billing Cycle
 
-Billing Cycle is a gem used to calculate the next billing date for a subscription.
+Billing Cycle is a gem used to calculate the next billing date for a recurring subscription.
 
 ## Installation
 
