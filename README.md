@@ -1,5 +1,10 @@
 # Billing Cycle
 
+[![Build Status](https://travis-ci.org/simplymadeapps/billing_cycle.svg?branch=master)](https://travis-ci.org/simplymadeapps/billing_cycle)
+[![Code Climate](https://codeclimate.com/github/simplymadeapps/billing_cycle/badges/gpa.svg)](https://codeclimate.com/github/simplymadeapps/billing_cycle)
+[![Test Coverage](https://codeclimate.com/github/simplymadeapps/billing_cycle/badges/coverage.svg)](https://codeclimate.com/github/simplymadeapps/billing_cycle/coverage)
+[![Yard Docs](http://img.shields.io/badge/yard-docs-blue.svg)](http://www.rubydoc.info/github/simplymadeapps/billing_cycle/)
+
 Billing Cycle is a gem used to calculate the next billing date for a recurring subscription.
 
 ## Installation
