@@ -36,18 +36,26 @@ class BillingCycle
   # Returns the number from the interval's duration.
   # @return [Integer] `6` for a duration of `6.months`
   def interval_value
-    interval.parts.values[0]
+    if interval.parts.is_a? Array
+      interval.parts[0][1]
+    else
+      interval.parts.values[0]
+    end
   end
 
   # Returns the interval type from the interval's duration.
   # @return [Symbol] `:month` for a duration of `1.month`
   def interval_units
-    interval.parts.keys[0]
+    if interval.parts.is_a? Array
+      interval.parts[0][0]
+    else
+      interval.parts.keys[0]
+    end
   end
 
   # Returns the number billing cycles that have occurred between the created date and "now".
   # @return [Integer]
   def number_of_cycles_since_created(now)
-    interval_value * ((now - created_at).to_i / interval)
+    (interval_value * ((now - created_at).to_i / interval)).to_i
   end
 end
