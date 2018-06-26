@@ -1,0 +1,13 @@
+gemfile:
+  - gemfiles/latest.gemfile
+  - gemfiles/activesupport_3.gemfile
+  - gemfiles/activesupport_4.gemfile
+  - gemfiles/activesupport_5.gemfile
+
+language: ruby
+
+rvm:
+  - 2.2.10
+  - 2.3.7
+  - 2.4.4
+  - 2.5.1
