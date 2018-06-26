@@ -1,21 +1,18 @@
 require "spec_helper"
 
 describe BillingCycle, type: :model do
+  let(:billing_cycle) { BillingCycle.new(created_at, interval) }
+  let(:created_at) { Time.zone.parse("2018-07-31 00:00:00") }
+  let(:interval) { 1.month }
+
   describe "initialize" do
     it "sets the created_at and interval" do
-      created_at = 1.year.ago
-      interval = 1.month
-      billing_cycle = BillingCycle.new(created_at, interval)
       expect(billing_cycle.created_at).to eq(created_at)
       expect(billing_cycle.interval).to eq(interval)
     end
   end
 
   describe "next_due_at" do
-    let(:billing_cycle) { BillingCycle.new(created_at, interval) }
-    let(:created_at) { Time.zone.parse("2018-07-31 00:00:00") }
-    let(:interval) { 1.month }
-
     it "returns the next date/time in the billing cycle based on the current date/time" do
       travel_to Time.zone.parse("2018-08-20 00:00:00") do
         expect(billing_cycle.next_due_at).to eq(Time.zone.parse("2018-08-31 00:00:00"))
@@ -166,25 +163,45 @@ describe BillingCycle, type: :model do
           end
         end
       end
+    end
+  end
 
-      context "when the interval is a duration from ActiveSupport 4" do
-        let(:interval) { double("ActiveSupport::Duration", parts: parts) }
-        let(:parts) { [[:weeks, 5]] }
+  describe "interval_units" do
+    context "when the interval is a duration from ActiveSupport 4" do
+      let(:interval) { double("ActiveSupport::Duration", parts: parts) }
+      let(:parts) { [[:weeks, 5]] }
 
-        it "uses the correct interval parts when calculating `next_due_at`" do
-          expect(billing_cycle.send(:interval_value)).to eq(5)
-          expect(billing_cycle.send(:interval_units)).to eq(:weeks)
-        end
+      it "returns the interval units" do
+        expect(billing_cycle.send(:interval_units)).to eq(:weeks)
       end
+    end
 
-      context "when the interval is a duration from ActiveSupport 5" do
-        let(:interval) { double("ActiveSupport::Duration", parts: parts) }
-        let(:parts) { { weeks: 5 } }
+    context "when the interval is a duration from ActiveSupport 5" do
+      let(:interval) { double("ActiveSupport::Duration", parts: parts) }
+      let(:parts) { { weeks: 5 } }
 
-        it "uses the correct interval parts when calculating `next_due_at`" do
-          expect(billing_cycle.send(:interval_value)).to eq(5)
-          expect(billing_cycle.send(:interval_units)).to eq(:weeks)
-        end
+      it "returns the interval units" do
+        expect(billing_cycle.send(:interval_units)).to eq(:weeks)
+      end
+    end
+  end
+
+  describe "interval_value" do
+    context "when the interval is a duration from ActiveSupport 4" do
+      let(:interval) { double("ActiveSupport::Duration", parts: parts) }
+      let(:parts) { [[:weeks, 5]] }
+
+      it "returns the interval value" do
+        expect(billing_cycle.send(:interval_value)).to eq(5)
+      end
+    end
+
+    context "when the interval is a duration from ActiveSupport 5" do
+      let(:interval) { double("ActiveSupport::Duration", parts: parts) }
+      let(:parts) { { weeks: 5 } }
+
+      it "returns the interval value" do
+        expect(billing_cycle.send(:interval_value)).to eq(5)
       end
     end
   end
