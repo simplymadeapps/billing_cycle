@@ -166,6 +166,26 @@ describe BillingCycle, type: :model do
           end
         end
       end
+
+      context "when the interval is a duration from ActiveSupport 4" do
+        let(:interval) { double("ActiveSupport::Duration", parts: parts) }
+        let(:parts) { [[:weeks, 5]] }
+
+        it "uses the correct interval parts when calculating `next_due_at`" do
+          expect(billing_cycle.send(:interval_value)).to eq(5)
+          expect(billing_cycle.send(:interval_units)).to eq(:weeks)
+        end
+      end
+
+      context "when the interval is a duration from ActiveSupport 5" do
+        let(:interval) { double("ActiveSupport::Duration", parts: parts) }
+        let(:parts) { { weeks: 5 } }
+
+        it "uses the correct interval parts when calculating `next_due_at`" do
+          expect(billing_cycle.send(:interval_value)).to eq(5)
+          expect(billing_cycle.send(:interval_units)).to eq(:weeks)
+        end
+      end
     end
   end
 end
