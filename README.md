@@ -19,10 +19,16 @@ $ bundle
 ## Usage
 
 ```ruby
-subscription_created_at = Time.zone.parse("2018-01-31 08:00:00")
-subscription_interval = 1.month
-billing_cycle = BillingCycle.new(subscription_created_at, subscription_interval)
-billing_cycle.next_due_at(now = Time.zone.now)
+billing_cycle = BillingCycle.new(Time.zone.parse("2018-01-31 00:00:00"), 1.month)
+
+Time.zone.now
+# => Tue, 26 Jun 2018 00:00:00 CDT -05:00
+
+billing_cycle.next_due_at
+# => Sat, 30 Jun 2018 00:00:00 CDT -05:00
+
+billing_cycle.next_due_at(Time.zone.parse("2020-02-01 00:00:00")
+# => Sat, 29 Feb 2020 00:00:00 CST -06:00
 ```
 
 ## Contributing
