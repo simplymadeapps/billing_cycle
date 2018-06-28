@@ -31,6 +31,23 @@ class BillingCycle
     next_due_at
   end
 
+  # Returns the previous billing date based on the subscription
+  # @param now [Time] The current time
+  # @return [Time] The previous billing date/time
+  def previous_due_at(now = Time.zone.now)
+    number_of_cycles = number_of_cycles_since_created(now) + interval_value
+    previous_due_at = number_of_cycles.send(interval_units).from_now(created_at)
+
+    # The number of cycles since the billing cycle was created gets us to "now",
+    # and if now matches a billing date exactly, we want the previous billing date.
+    while previous_due_at >= now
+      number_of_cycles -= interval_value
+      previous_due_at = number_of_cycles.send(interval_units).from_now(created_at)
+    end
+
+    previous_due_at
+  end
+
   private
 
   # Returns the number from the interval's duration.

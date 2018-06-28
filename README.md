@@ -36,6 +36,12 @@ billing_cycle.next_due_at
 
 billing_cycle.next_due_at(Time.zone.parse("2020-02-01 00:00:00")
 # => Sat, 29 Feb 2020 00:00:00 CST -06:00
+
+billing_cycle.previous_due_at
+# => Thu, 31 May 2018 00:00:00 CDT -05:00
+
+billing_cycle.previous_due_at(Time.zone.parse("2020-02-01 00:00:00")
+# => Fri, 31 Jan 2020 00:00:00 CST -06:00
 ```
 
 ## Contributing
