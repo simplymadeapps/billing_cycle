@@ -26,7 +26,7 @@ $ bundle
 ```ruby
 original_billing_date = Time.zone.parse("2018-01-31 00:00:00")
 billing_interval = 1.month
-billing_cycle = BillingCycle.new(original_billing_date, billing_interval)
+billing_cycle = BillingCycle::BillingCycle.new(original_billing_date, billing_interval)
 
 Time.zone.now
 # => Tue, 26 Jun 2018 00:00:00 CDT -05:00

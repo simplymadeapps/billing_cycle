@@ -1,7 +1,7 @@
 require "spec_helper"
 
-describe BillingCycle, type: :model do
-  let(:billing_cycle) { BillingCycle.new(created_at, interval) }
+describe BillingCycle::BillingCycle, type: :model do
+  let(:billing_cycle) { BillingCycle::BillingCycle.new(created_at, interval) }
   let(:created_at) { Time.zone.parse("2018-07-31 00:00:00") }
   let(:interval) { 1.month }
 

@@ -1,9 +1,12 @@
 $LOAD_PATH.push File.expand_path("lib", __dir__)
 
+# Maintain your gem's version:
+require "billing_cycle/version"
+
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "billing_cycle"
-  s.version     = "1.0.0"
+  s.version     = BillingCycle::VERSION
   s.authors     = ["Brian Pattison"]
   s.email       = ["brian@brianpattison.com"]
   s.homepage    = "https://github.com/simplymadeapps/billing_cycle"
