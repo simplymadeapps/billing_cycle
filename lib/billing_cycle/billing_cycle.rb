@@ -35,8 +35,6 @@ module BillingCycle
       next_due_at
     end
 
-    # RETURN NIL IF BEFORE THE CREATED AT
-
     # Returns the previous billing date based on the subscription
     # @param now [Time] The current time
     # @return [Time] The previous billing date/time
@@ -60,7 +58,7 @@ module BillingCycle
     private
 
     # Calculate the due date based on number of billing cycles since
-    # or before  the date/time the subscription was created.
+    # or before the date/time the subscription was created.
     # @param number_of_cycles [Integer]
     # @return [Time]
     def calculate_due_at(number_of_cycles)
