@@ -44,6 +44,21 @@ billing_cycle.previous_due_at(Time.zone.parse("2020-02-01 00:00:00")
 # => Fri, 31 Jan 2020 00:00:00 CST -06:00
 ```
 
+If the original billing date is in the future, the `next_due_at` will always be the
+original billing date, and the `previous_due_at` will be `nil`.
+
+```ruby
+original_billing_date = Time.zone.parse("9999-12-31 00:00:00")
+billing_interval = 1.month
+billing_cycle = BillingCycle::BillingCycle.new(original_billing_date, billing_interval)
+
+billing_cycle.next_due_at
+# => Fri, 31 Dec 9999 00:00:00 CST -06:00
+
+billing_cycle.previous_due_at
+# => nil
+```
+
 ## Contributing
 
 1. Fork it
