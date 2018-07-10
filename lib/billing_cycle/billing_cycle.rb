@@ -19,37 +19,53 @@ module BillingCycle
     # @param now [Time] The current time
     # @return [Time] The next billing date/time
     def next_due_at(now = Time.zone.now)
+      # The next billing date is always the original date if "now" is earlier than the original date
+      return created_at if now <= created_at
+
       number_of_cycles = number_of_cycles_since_created(now)
-      next_due_at = number_of_cycles.send(interval_units).from_now(created_at)
+      next_due_at = calculate_due_at(number_of_cycles)
 
       # The number of cycles since the billing cycle was created only gets us to "now"
       # so we need probably need to add another cycle to get the next billing date.
       while next_due_at < now
         number_of_cycles += interval_value
-        next_due_at = number_of_cycles.send(interval_units).from_now(created_at)
+        next_due_at = calculate_due_at(number_of_cycles)
       end
 
       next_due_at
     end
 
+    # RETURN NIL IF BEFORE THE CREATED AT
+
     # Returns the previous billing date based on the subscription
     # @param now [Time] The current time
     # @return [Time] The previous billing date/time
     def previous_due_at(now = Time.zone.now)
+      # There was no previous billing date before the original billing date
+      return nil if now <= created_at
+
       number_of_cycles = number_of_cycles_since_created(now) + interval_value
-      previous_due_at = number_of_cycles.send(interval_units).from_now(created_at)
+      previous_due_at = calculate_due_at(number_of_cycles)
 
       # The number of cycles since the billing cycle was created gets us to "now",
       # and if now matches a billing date exactly, we want the previous billing date.
       while previous_due_at >= now
         number_of_cycles -= interval_value
-        previous_due_at = number_of_cycles.send(interval_units).from_now(created_at)
+        previous_due_at = calculate_due_at(number_of_cycles)
       end
 
       previous_due_at
     end
 
     private
+
+    # Calculate the due date based on number of billing cycles since
+    # or before  the date/time the subscription was created.
+    # @param number_of_cycles [Integer]
+    # @return [Time]
+    def calculate_due_at(number_of_cycles)
+      number_of_cycles.send(interval_units).from_now(created_at)
+    end
 
     # Returns the number from the interval's duration.
     # @return [Integer] `6` for a duration of `6.months`

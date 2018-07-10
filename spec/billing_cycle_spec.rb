@@ -30,6 +30,12 @@ describe BillingCycle::BillingCycle, type: :model do
       end
     end
 
+    it "returns the created_at date if 'now' is earlier than the original billing date" do
+      travel_to Time.zone.parse("2000-01-01 00:00:00") do
+        expect(billing_cycle.next_due_at).to eq(created_at)
+      end
+    end
+
     context "when the interval is every year" do
       let(:interval) { 1.year }
 
@@ -181,6 +187,12 @@ describe BillingCycle::BillingCycle, type: :model do
     it "returns the previous date/time if the current date/time matches the a billing date exactly" do
       travel_to Time.zone.parse("2018-08-31 00:00:00") do
         expect(billing_cycle.previous_due_at).to eq(Time.zone.parse("2018-07-31 00:00:00"))
+      end
+    end
+
+    it "returns `nil` if 'now' is earlier than the original billing date" do
+      travel_to Time.zone.parse("2000-01-01 00:00:00") do
+        expect(billing_cycle.previous_due_at).to eq(nil)
       end
     end
 
