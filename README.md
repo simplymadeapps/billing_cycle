@@ -90,7 +90,8 @@ billing_cycle.time_remaining
 # => 1296000.0 (seconds)
 ```
 
-An interval and time can be passed in as "now" instead of implicitly using seconds and the current time.
+An interval can be passed in instead of implicitly using seconds and time can be passed in as "now"
+instead of implicitly using the current time.
 
 ```ruby
 billing_cycle.time_elapsed(1.day, Time.zone.parse("2019-06-07 00:00:00"))
