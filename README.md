@@ -41,12 +41,14 @@ Time.zone.now
 billing_cycle.next_due_at
 # => Sat, 30 Jun 2018 00:00:00 CDT -05:00
 
+# A time can be passed in as "now" instead of implicitly using the current time
 billing_cycle.next_due_at(Time.zone.parse("2020-02-01 00:00:00")
 # => Sat, 29 Feb 2020 00:00:00 CST -06:00
 
 billing_cycle.previous_due_at
 # => Thu, 31 May 2018 00:00:00 CDT -05:00
 
+# A time can be passed in as "now" instead of implicitly using the current time
 billing_cycle.previous_due_at(Time.zone.parse("2020-02-01 00:00:00")
 # => Fri, 31 Jan 2020 00:00:00 CST -06:00
 ```
@@ -80,22 +82,24 @@ Time.zone.now
 # => Sun, 16 Jun 2019 00:00:00 CDT -05:00
 
 billing_cycle.time_elapsed
-# => 1296000.0
+# => 1296000.0 (seconds)
 
+# An interval and time can be passed in as "now" instead of implicitly using seconds and the current time
 billing_cycle.time_elapsed(1.day, Time.zone.parse("2019-06-07 00:00:00"))
-# => 6.0
+# => 6.0 (days)
 
 billing_cycle.time_remaining
-# => 2073600.0
+# => 1296000.0 (seconds)
 
+# An interval and time can be passed in as "now" instead of implicitly using seconds and the current time
 billing_cycle.time_remaining(1.day, Time.zone.parse("2019-06-07 00:00:00"))
-# => 24.0
+# => 24.0 (days)
 ```
 
 ### Percent Elapsed and Remaining
 
 The percent elapsed and remaining can be used for calculating subscription pricing when charging
-or refunding for a partial billing cycle.
+or refunding for a partial billing cycle. The percentages are returned as a fraction of 1.0.
 
 ```ruby
 original_billing_date = Time.zone.parse("2019-06-01 00:00:00")
@@ -108,14 +112,16 @@ Time.zone.now
 billing_cycle.percent_elapsed
 # => 0.5
 
+# A time can be passed in as "now" instead of implicitly using the current time
 billing_cycle.percent_elapsed(Time.zone.parse("2019-06-07 00:00:00"))
 # => 0.2
 
 billing_cycle.percent_remaining
 # => 0.5
 
+# A time can be passed in as "now" instead of implicitly using the current time
 billing_cycle.percent_remaining(Time.zone.parse("2019-06-07 00:00:00"))
-# => 0.2
+# => 0.8
 ```
 
 ## Contributing
@@ -127,4 +133,5 @@ billing_cycle.percent_remaining(Time.zone.parse("2019-06-07 00:00:00"))
 5. Create new Pull Request
 
 ## License
+
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
