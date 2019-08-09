@@ -41,14 +41,16 @@ Time.zone.now
 billing_cycle.next_due_at
 # => Sat, 30 Jun 2018 00:00:00 CDT -05:00
 
-# A time can be passed in as "now" instead of implicitly using the current time
+billing_cycle.previous_due_at
+# => Thu, 31 May 2018 00:00:00 CDT -05:00
+```
+
+A time can be passed in as "now" instead of implicitly using the current time.
+
+```ruby
 billing_cycle.next_due_at(Time.zone.parse("2020-02-01 00:00:00")
 # => Sat, 29 Feb 2020 00:00:00 CST -06:00
 
-billing_cycle.previous_due_at
-# => Thu, 31 May 2018 00:00:00 CDT -05:00
-
-# A time can be passed in as "now" instead of implicitly using the current time
 billing_cycle.previous_due_at(Time.zone.parse("2020-02-01 00:00:00")
 # => Fri, 31 Jan 2020 00:00:00 CST -06:00
 ```
@@ -84,14 +86,16 @@ Time.zone.now
 billing_cycle.time_elapsed
 # => 1296000.0 (seconds)
 
-# An interval and time can be passed in as "now" instead of implicitly using seconds and the current time
+billing_cycle.time_remaining
+# => 1296000.0 (seconds)
+```
+
+An interval and time can be passed in as "now" instead of implicitly using seconds and the current time.
+
+```ruby
 billing_cycle.time_elapsed(1.day, Time.zone.parse("2019-06-07 00:00:00"))
 # => 6.0 (days)
 
-billing_cycle.time_remaining
-# => 1296000.0 (seconds)
-
-# An interval and time can be passed in as "now" instead of implicitly using seconds and the current time
 billing_cycle.time_remaining(1.day, Time.zone.parse("2019-06-07 00:00:00"))
 # => 24.0 (days)
 ```
@@ -112,14 +116,16 @@ Time.zone.now
 billing_cycle.percent_elapsed
 # => 0.5
 
-# A time can be passed in as "now" instead of implicitly using the current time
+billing_cycle.percent_remaining
+# => 0.5
+```
+
+A time can be passed in as "now" instead of implicitly using the current time.
+
+```ruby
 billing_cycle.percent_elapsed(Time.zone.parse("2019-06-07 00:00:00"))
 # => 0.2
 
-billing_cycle.percent_remaining
-# => 0.5
-
-# A time can be passed in as "now" instead of implicitly using the current time
 billing_cycle.percent_remaining(Time.zone.parse("2019-06-07 00:00:00"))
 # => 0.8
 ```
