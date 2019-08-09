@@ -172,6 +172,36 @@ describe BillingCycle::BillingCycle, type: :model do
     end
   end
 
+  describe "percent_elapsed" do
+    let(:created_at) { Time.zone.parse("2019-06-01 00:00:00") }
+
+    it "returns the percentage of time that's elapsed in the billing cycle based on the current date/time" do
+      travel_to Time.zone.parse("2019-06-16 00:00:00") do
+        expect(billing_cycle.percent_elapsed).to eq(0.5)
+      end
+    end
+
+    it "returns the percentage of time that's elapsed in the billing cycle based on a given date/time" do
+      now = Time.zone.parse("2019-06-07 00:00:00")
+      expect(billing_cycle.percent_elapsed(now)).to eq(0.2)
+    end
+  end
+
+  describe "percent_remaining" do
+    let(:created_at) { Time.zone.parse("2019-06-01 00:00:00") }
+
+    it "returns the percentage of time that's remaining in the billing cycle based on the current date/time" do
+      travel_to Time.zone.parse("2019-06-16 00:00:00") do
+        expect(billing_cycle.percent_remaining).to eq(0.5)
+      end
+    end
+
+    it "returns the percentage of time that's remaining in the billing cycle based on a given date/time" do
+      now = Time.zone.parse("2019-06-07 00:00:00")
+      expect(billing_cycle.percent_remaining(now)).to eq(0.8)
+    end
+  end
+
   describe "previous_due_at" do
     it "returns the previous date/time in the billing cycle based on the current date/time" do
       travel_to Time.zone.parse("2018-08-20 00:00:00") do
@@ -329,6 +359,48 @@ describe BillingCycle::BillingCycle, type: :model do
           end
         end
       end
+    end
+  end
+
+  describe "time_elapsed" do
+    let(:created_at) { Time.zone.parse("2019-06-01 00:00:00") }
+
+    it "returns the number of seconds elapsed in the billing cycle based on the current date/time" do
+      travel_to Time.zone.parse("2019-06-16 00:00:00") do
+        expect(billing_cycle.time_elapsed).to eq(1_296_000.0)
+      end
+    end
+
+    it "returns the number of intervals elapsed in the billing cycle based on the current date/time" do
+      travel_to Time.zone.parse("2019-06-16 00:00:00") do
+        expect(billing_cycle.time_elapsed(1.day)).to eq(15.0)
+      end
+    end
+
+    it "returns the number of intervals elapsed in the billing cycle based on a given current date/time" do
+      now = Time.zone.parse("2019-06-07 00:00:00")
+      expect(billing_cycle.time_elapsed(1.day, now)).to eq(6.0)
+    end
+  end
+
+  describe "time_remaining" do
+    let(:created_at) { Time.zone.parse("2019-06-01 00:00:00") }
+
+    it "returns the number of seconds remaining in the billing cycle based on the current date/time" do
+      travel_to Time.zone.parse("2019-06-16 00:00:00") do
+        expect(billing_cycle.time_remaining).to eq(1_296_000.0)
+      end
+    end
+
+    it "returns the number of intervals remaining in the billing cycle based on the current date/time" do
+      travel_to Time.zone.parse("2019-06-16 00:00:00") do
+        expect(billing_cycle.time_remaining(1.day)).to eq(15.0)
+      end
+    end
+
+    it "returns the number of intervals remaining in the billing cycle based on a given current date/time" do
+      now = Time.zone.parse("2019-06-07 00:00:00")
+      expect(billing_cycle.time_remaining(1.day, now)).to eq(24.0)
     end
   end
 

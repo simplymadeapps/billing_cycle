@@ -35,6 +35,20 @@ module BillingCycle
       next_due_at
     end
 
+    # Returns the percentage of time that's elapsed between the previous due date and the next due date.
+    # @param now [Time] The current time
+    # @return [Float] The percentage as a fraction of 1.0
+    def percent_elapsed(now = Time.zone.now)
+      time_elapsed(1.second, now) / seconds_in_cycle(now)
+    end
+
+    # Returns the percentage of time that's remaining between the previous due date and the next due date.
+    # @param now [Time] The current time
+    # @return [Float] The percentage as a fraction of 1.0
+    def percent_remaining(now = Time.zone.now)
+      time_remaining(1.second, now) / seconds_in_cycle(now)
+    end
+
     # Returns the previous billing date based on the subscription
     # @param now [Time] The current time
     # @return [Time] The previous billing date/time
@@ -53,6 +67,21 @@ module BillingCycle
       end
 
       previous_due_at
+    end
+
+    # Returns the time elapsed since the previous due date.
+    # @param interval [ActiveSupport::Duration] The duration
+    # @param now [Time] The current time
+    # @return [Float] The number of intervals since the previous due date
+    def time_elapsed(interval = 1.second, now = Time.zone.now)
+      (now - previous_due_at(now)) / interval
+    end
+
+    # Returns the time remaining until the next due date.
+    # @param now [Time] The current time
+    # @return [Float] The number of intervals until the next due date
+    def time_remaining(interval = 1.second, now = Time.zone.now)
+      (next_due_at(now) - now) / interval
     end
 
     private
@@ -86,9 +115,17 @@ module BillingCycle
     end
 
     # Returns the number billing cycles that have occurred between the created date and "now".
+    # @param now [Time] The current time
     # @return [Integer]
     def number_of_cycles_since_created(now)
       (interval_value * ((now - created_at).to_i / interval)).to_i
+    end
+
+    # Returns the total number of seconds in the current billing cycle.
+    # @param now [Time] The current time
+    # @return [Float]
+    def seconds_in_cycle(now)
+      next_due_at(now) - previous_due_at(now)
     end
   end
 end
