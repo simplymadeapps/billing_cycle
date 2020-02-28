@@ -6,8 +6,8 @@ after_success:
   - bundle exec codeclimate-test-reporter
 
 gemfile:
-  - gemfiles/activesupport_4.gemfile
   - gemfiles/activesupport_5.gemfile
+  - gemfiles/activesupport_6.gemfile
   - gemfiles/latest.gemfile
 
 language: ruby
