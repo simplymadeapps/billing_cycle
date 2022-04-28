@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 $LOAD_PATH.push File.expand_path("lib", __dir__)
 
 # Maintain your gem's version:
@@ -13,6 +15,8 @@ Gem::Specification.new do |s|
   s.summary     = "Utility for calculating the next billing date for a recurring subscription."
   s.description = "Billing Cycle is a gem used to calculate the next billing date for a recurring subscription."
   s.license     = "MIT"
+
+  s.required_ruby_version = ">= 2.7.0"
 
   s.files = Dir["{lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
