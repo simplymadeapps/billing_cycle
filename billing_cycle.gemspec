@@ -18,8 +18,8 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ">= 2.7.0"
 
-  s.metadata["homepage_uri"] = spec.homepage
-  s.metadata["source_code_uri"] = spec.homepage
+  s.metadata["homepage_uri"] = s.homepage
+  s.metadata["source_code_uri"] = s.homepage
   s.metadata["changelog_uri"] = "https://www.github.com/simplymadeapps/billing_cycle/CHANGELOG.md"
   s.metadata["rubygems_mfa_required"] = "true"
 
