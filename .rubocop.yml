@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - "gemfiles/**/*"
+    - "vendor/**/*"
   NewCops: enable
 
 Layout/LineLength:
