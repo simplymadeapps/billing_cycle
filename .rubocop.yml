@@ -1,6 +1,7 @@
 Metrics/BlockLength:
   Exclude:
     - "spec/**/*"
+    - "gemfiles/**/*"
   NewCops: enable
 
 Metrics/LineLength:
