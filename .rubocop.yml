@@ -1,11 +1,14 @@
-Metrics/BlockLength:
+AllCops:
   Exclude:
-    - "spec/**/*"
     - "gemfiles/**/*"
   NewCops: enable
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
