@@ -1,6 +1,7 @@
 Metrics/BlockLength:
   Exclude:
     - "spec/**/*"
+  NewCops: enable
 
 Metrics/LineLength:
   Max: 120
