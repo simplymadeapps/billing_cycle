@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "coverage_helper"
 require "billing_cycle"
 require "active_support/testing/time_helpers"
